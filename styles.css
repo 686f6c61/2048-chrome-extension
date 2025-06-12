@@ -104,3 +104,53 @@ button {
   font-size: 14px;
   cursor: pointer;
 }
+
+.hidden { display: none; }
+
+#win-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+#win-message {
+  background: #ffffff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 18px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+#new-game {
+  margin-top: 10px;
+  background: #8f7a66;
+  border: none;
+  color: #f9f6f2;
+  border-radius: 3px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--c);
+  top: -10px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}

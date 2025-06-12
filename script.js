@@ -7,6 +7,8 @@ const gridContainer = document.getElementById("grid-container");
 const scoreSpan = document.getElementById("score-value");
 const restartButton = document.getElementById("restart");
 const modeSelect = document.getElementById("mode");
+const winOverlay = document.getElementById("win-overlay");
+const newGameBtn = document.getElementById("new-game");
 
 let grid;
 let score;
@@ -49,6 +51,11 @@ function render() {
     gridContainer.appendChild(tile);
   });
   scoreSpan.textContent = score;
+
+  // Check win condition
+  if (grid.flat().includes(2048)) {
+    showWin();
+  }
 }
 
 function slide(row) {
@@ -69,6 +76,18 @@ function rotateClockwise(mat) {
 
 function rotateCounterClockwise(mat) {
   return mat[0].map((_, i) => mat.map((row) => row[row.length - 1 - i]));
+}
+
+function hasMoves() {
+  // Comprueba si existe al menos un cero o fichas adyacentes iguales
+  for (let r = 0; r < 4; r++) {
+    for (let c = 0; c < 4; c++) {
+      if (grid[r][c] === 0) return true;
+      if (c < 3 && grid[r][c] === grid[r][c + 1]) return true;
+      if (r < 3 && grid[r][c] === grid[r + 1][c]) return true;
+    }
+  }
+  return false;
 }
 
 function move(dir) {
@@ -94,6 +113,30 @@ function move(dir) {
   if (oldGrid !== JSON.stringify(grid)) {
     addRandomTile();
     render();
+    // Verificar si quedan movimientos
+    if (!hasMoves()) {
+      setTimeout(() => {
+        if (confirm("¡No hay más movimientos! ¿Quieres jugar otra partida?")) {
+          init();
+        }
+      }, 50);
+    }
+  }
+}
+
+function showWin() {
+  winOverlay.classList.remove("hidden");
+  launchConfetti();
+}
+
+function launchConfetti() {
+  for (let i = 0; i < 100; i++) {
+    const confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.style.left = Math.random() * 100 + "%";
+    confetti.style.setProperty("--c", `hsl(${Math.random()*360}, 70%, 60%)`);
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 3000);
   }
 }
 
@@ -105,6 +148,11 @@ document.addEventListener("keydown", (e) => {
 
 restartButton.addEventListener("click", init);
 modeSelect.addEventListener("change", () => {
+  init();
+});
+
+newGameBtn.addEventListener("click", () => {
+  winOverlay.classList.add("hidden");
   init();
 });
 
