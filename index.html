@@ -1,0 +1,41 @@
+<!--
+  2048 Chrome Extension - Popup HTML
+  Autor: 686f6c61
+  Descripción: Interfaz principal del juego mostrada en el popup de la extensión.
+  Fecha: 2025-06-12
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2048</title> <!-- Título de la pestaña del popup -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Contenedor general del juego -->
+  <div id="game-container">
+    <h1>2048</h1>
+    <!-- Cuadrícula donde se renderizan las fichas -->
+    <div id="grid-container"></div>
+    <!-- Controles: puntuación, nivel de juego y reinicio -->
+    <div class="controls">
+      <div id="score">Puntuación: <span id="score-value">0</span></div>
+      <div id="mode-wrapper">
+        <label for="mode">Nivel:</label>
+        <select id="mode">
+          <option value="facil">Fácil</option>
+          <option value="medio" selected>Medio</option>
+          <option value="dificil">Difícil</option>
+          <option value="muy_dificil">Muy Difícil</option>
+        </select>
+      </div>
+      <button id="restart">🔄 Reiniciar</button>
+    </div>
+    <!-- Instrucciones para el usuario -->
+    <div id="instructions">Usa las flechas ← ↑ → ↓ para mover las fichas</div>
+  </div>
+  <!-- Lógica del juego -->
+  <script src="script.js"></script>
+</body>
+</html>

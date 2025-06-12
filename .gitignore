@@ -1,0 +1,4 @@
+# Ignore OS and IDE files
+.DS_Store
+*.log
+node_modules/
