@@ -92,7 +92,17 @@ body {
   font-size: 12px;
   color: #555;
   margin-top: 4px;
+  margin-bottom: 2px;
+}
+
+#credits {
+  font-size: 11px;
   margin-bottom: 6px;
+}
+
+#credits a {
+  color: #8f7a66;
+  text-decoration: none;
 }
 
 button {
@@ -105,7 +115,9 @@ button {
   cursor: pointer;
 }
 
-.hidden { display: none; }
+
+
+.hidden { display: none !important; }
 
 #win-overlay {
   position: fixed;
