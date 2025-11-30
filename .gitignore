@@ -1,0 +1,36 @@
+# 2048 Chrome Extension - Git Ignore File
+
+# Sistema Operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDEs y Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Temporales
+.tmp/
+temp/
+
+# Builds
+dist/
+build/
+*.zip
+*.crx
+*.pem
+
+# Node (futuro)
+node_modules/
+
+# Testing
+coverage/
+
+# Backups
+*.bak
+*.old

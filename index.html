@@ -1,0 +1,108 @@
+<!--
+  2048 Chrome Extension - Popup HTML
+
+  @author 686f6c61
+  @version 2.0
+  @description Interfaz principal del juego con características modernas:
+               - Modo oscuro
+               - Estadísticas persistentes
+               - Selector de dificultad moderno
+               - Accesibilidad completa (ARIA)
+
+  @repository https://github.com/686f6c61/2048-chrome-extension
+  @license MIT
+  @created 2025-06-12
+  @updated 2025-11-18
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2048</title> <!-- Título de la pestaña del popup -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Contenedor general del juego -->
+  <div id="game-container">
+    <button id="dark-mode-toggle" aria-label="Alternar modo oscuro">🌓</button>
+    <h1>2048</h1>
+    <!-- Estadísticas del jugador -->
+    <div id="stats-container">
+      <div class="stat-item">
+        <span class="stat-label">Partidas</span>
+        <span class="stat-value" id="games-played">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Mejor</span>
+        <span class="stat-value" id="best-score">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Max Tile</span>
+        <span class="stat-value" id="best-tile">0</span>
+      </div>
+    </div>
+    <!-- Cuadrícula donde se renderizan las fichas -->
+    <div id="grid-container" role="grid" aria-label="Tablero de juego 2048"></div>
+    <!-- Controles: puntuación, nivel de juego y reinicio -->
+    <div class="controls">
+      <div id="score">Puntuación: <span id="score-value">0</span></div>
+
+      <!-- Selector de dificultad moderno -->
+      <div id="mode-wrapper">
+        <label for="mode">Dificultad:</label>
+        <div class="mode-selector">
+          <button type="button" class="mode-btn" data-mode="facil" aria-label="Modo Fácil">
+            <span class="mode-icon">😊</span>
+            <span class="mode-text">Fácil</span>
+          </button>
+          <button type="button" class="mode-btn active" data-mode="medio" aria-label="Modo Medio">
+            <span class="mode-icon">😐</span>
+            <span class="mode-text">Medio</span>
+          </button>
+          <button type="button" class="mode-btn" data-mode="dificil" aria-label="Modo Difícil">
+            <span class="mode-icon">😰</span>
+            <span class="mode-text">Difícil</span>
+          </button>
+          <button type="button" class="mode-btn" data-mode="muy_dificil" aria-label="Modo Muy Difícil">
+            <span class="mode-icon">💀</span>
+            <span class="mode-text">Extremo</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Botones de acción en la misma fila -->
+      <div class="action-buttons">
+        <button id="undo-btn" aria-label="Deshacer último movimiento" disabled>
+          <span class="btn-icon">↶</span> Deshacer
+        </button>
+        <button id="restart" aria-label="Reiniciar juego">
+          <span class="btn-icon">🔄</span> Reiniciar
+        </button>
+      </div>
+    </div>
+    <!-- Instrucciones para el usuario -->
+    <div id="instructions">Usa las flechas ← ↑ → ↓ para mover las fichas</div>
+    <div id="credits"><a href="https://github.com/686f6c61/2048-chrome-extension" target="_blank" rel="noopener">GitHub • 686f6c61</a></div>
+  </div>
+  <!-- Overlay victoria -->
+  <div id="win-overlay" class="hidden" role="dialog" aria-labelledby="win-title" aria-modal="true">
+    <div id="win-message">
+      <div id="win-title">¡Has alcanzado 2048! 🎉</div>
+      <br/>
+      <button id="new-game" aria-label="Iniciar nueva partida">Nueva partida</button>
+    </div>
+  </div>
+  <!-- Overlay Game Over -->
+  <div id="gameover-overlay" class="hidden" role="dialog" aria-labelledby="gameover-title" aria-modal="true">
+    <div id="gameover-message">
+      <div id="gameover-title">¡No hay más movimientos! 😔</div>
+      <br/>
+      <div style="margin-top: 10px;">Puntuación final: <span id="final-score">0</span></div>
+      <button id="restart-game" aria-label="Jugar otra partida">Jugar otra partida</button>
+    </div>
+  </div>
+  <!-- Lógica del juego -->
+  <script src="script.js"></script>
+</body>
+</html>

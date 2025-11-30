@@ -1,0 +1,470 @@
+/**
+ * 2048 Chrome Extension - Estilos y Animaciones
+ *
+ * @author 686f6c61
+ * @version 2.0
+ * @description Sistema completo de diseño con:
+ *              - Variables CSS para theming
+ *              - Modo claro y oscuro
+ *              - Animaciones fluidas
+ *              - Sistema de Grid responsive
+ *              - Efectos visuales modernos
+ *
+ * @repository https://github.com/686f6c61/2048-chrome-extension
+ * @license MIT
+ * @created 2025-06-12
+ * @updated 2025-11-18
+ */
+
+:root {
+  --bg-primary: #faf8ef;
+  --bg-grid: #bbada0;
+  --tile-empty: #cdc1b5;
+  --text-primary: #776e65;
+  --button-bg: #8f7a66;
+  --button-text: #f9f6f2;
+  --overlay-bg: rgba(0, 0, 0, 0.6);
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  min-width: 300px;
+  background: var(--bg-primary);
+  transition: background 0.3s ease;
+}
+
+/* Modo oscuro */
+body.dark-mode {
+  --bg-primary: #1a1a1a;
+  --bg-grid: #4a4a4a;
+  --tile-empty: #2d2d2d;
+  --text-primary: #f9f6f2;
+  --button-bg: #6d5d52;
+  --button-text: #f9f6f2;
+  --overlay-bg: rgba(0, 0, 0, 0.8);
+}
+
+#game-container {
+  text-align: center;
+  width: 270px;
+  padding-bottom: 8px;
+  position: relative;
+}
+
+#game-container h1 {
+  margin: 8px 0 12px 0;
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--text-primary);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  letter-spacing: -2px;
+}
+
+body.dark-mode #game-container h1 {
+  text-shadow: 2px 2px 8px rgba(255,255,255,0.2);
+}
+
+/* Animación de score cuando cambia */
+@keyframes scorePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); color: #f67c5f; }
+}
+
+.score-change {
+  animation: scorePulse 0.3s ease-in-out;
+}
+
+#grid-container {
+  background: var(--bg-grid);
+  border-radius: 6px;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  padding: 4px;
+}
+
+.tile {
+  background: var(--tile-empty);
+  border-radius: 3px;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-primary);
+  transition: all 0.15s ease-in-out;
+  transform: scale(1);
+}
+
+.tile.tile-new {
+  animation: pop 0.2s ease-in-out;
+}
+
+@keyframes pop {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.tile-2 { background: #eee4da; color: #776e65; }
+.tile-4 { background: #ede0c8; color: #776e65; }
+.tile-8 { background: #f2b179; color: #f9f6f2; }
+.tile-16 { background: #f59563; color: #f9f6f2; }
+.tile-32 { background: #f67c5f; color: #f9f6f2; }
+.tile-64 { background: #f65e3b; color: #f9f6f2; }
+.tile-128 { background: #edcf72; color: #f9f6f2; font-size: 20px; }
+.tile-256 { background: #edcc61; color: #f9f6f2; font-size: 20px; }
+.tile-512 { background: #edc850; color: #f9f6f2; font-size: 20px; }
+.tile-1024 { background: #edc53f; color: #f9f6f2; font-size: 16px; }
+.tile-2048 { background: #edc22e; color: #f9f6f2; font-size: 16px; }
+
+/* Modo oscuro - tiles con mejor contraste */
+body.dark-mode .tile-2 { background: #4a4a4a; color: #ffffff; }
+body.dark-mode .tile-4 { background: #5a5a5a; color: #ffffff; }
+body.dark-mode .tile-8 { background: #e67e22; color: #ffffff; }
+body.dark-mode .tile-16 { background: #d35400; color: #ffffff; }
+body.dark-mode .tile-32 { background: #c0392b; color: #ffffff; }
+body.dark-mode .tile-64 { background: #a93226; color: #ffffff; }
+body.dark-mode .tile-128 { background: #f39c12; color: #1a1a1a; font-size: 20px; font-weight: 900; }
+body.dark-mode .tile-256 { background: #e67e22; color: #1a1a1a; font-size: 20px; font-weight: 900; }
+body.dark-mode .tile-512 { background: #d35400; color: #ffffff; font-size: 20px; }
+body.dark-mode .tile-1024 { background: #c0392b; color: #ffffff; font-size: 16px; }
+body.dark-mode .tile-2048 { background: #8e44ad; color: #ffffff; font-size: 16px; }
+
+#score {
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  background: var(--tile-empty);
+  padding: 8px 16px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: inline-block;
+}
+
+#score-value {
+  color: #f67c5f;
+  font-size: 20px;
+  margin-left: 4px;
+  display: inline-block;
+  min-width: 40px;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+#mode-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+#mode-wrapper label {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--text-primary);
+  opacity: 0.8;
+}
+
+/* Selector de dificultad moderno */
+.mode-selector {
+  display: flex;
+  gap: 4px;
+  background: var(--tile-empty);
+  padding: 3px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.mode-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 8px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-primary);
+  min-width: 52px;
+}
+
+.mode-btn .mode-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.mode-btn .mode-text {
+  font-size: 9px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.mode-btn:hover:not(.active) {
+  background: rgba(0,0,0,0.05);
+}
+
+body.dark-mode .mode-btn:hover:not(.active) {
+  background: rgba(255,255,255,0.1);
+}
+
+.mode-btn.active {
+  background: var(--button-bg);
+  color: var(--button-text);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transform: translateY(-1px);
+}
+
+.mode-btn:focus-visible {
+  outline: 2px solid #f67c5f;
+  outline-offset: 2px;
+}
+
+/* Botones de acción */
+.action-buttons {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Estilos para estadísticas */
+#stats-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: var(--text-primary);
+  gap: 8px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--tile-empty);
+  padding: 6px 12px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  flex: 1;
+  transition: transform 0.2s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-2px);
+}
+
+.stat-label {
+  font-size: 9px;
+  opacity: 0.7;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-weight: bold;
+  font-size: 16px;
+  color: #f67c5f;
+}
+
+/* Toggle modo oscuro */
+#dark-mode-toggle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--tile-empty);
+  border: none;
+  padding: 6px 10px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+#dark-mode-toggle:hover {
+  transform: rotate(180deg) scale(1.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Botones específicos */
+#undo-btn, #restart {
+  flex: 1;
+  max-width: 120px;
+}
+
+#instructions {
+  font-size: 12px;
+  color: #555;
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+
+#credits {
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+
+#credits a {
+  color: #8f7a66;
+  text-decoration: none;
+}
+
+button {
+  background: var(--button-bg);
+  border: none;
+  color: var(--button-text);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+button .btn-icon {
+  font-size: 16px;
+  margin-right: 4px;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+button:focus-visible {
+  outline: 3px solid #f67c5f;
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Efecto ripple al hacer click */
+button:not(:disabled)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:not(:disabled):active::after {
+  width: 200px;
+  height: 200px;
+}
+
+
+
+.hidden { display: none !important; }
+
+#win-overlay, #gameover-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--overlay-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#win-message, #gameover-message {
+  background: #ffffff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 18px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  animation: scaleIn 0.3s ease-in-out;
+}
+
+body.dark-mode #win-message,
+body.dark-mode #gameover-message {
+  background: #2d2d2d;
+  color: #f9f6f2;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+#new-game, #restart-game {
+  margin-top: 10px;
+  background: var(--button-bg);
+  border: none;
+  color: var(--button-text);
+  border-radius: 3px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--c);
+  top: -10px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
